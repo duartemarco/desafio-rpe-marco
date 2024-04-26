@@ -19,6 +19,7 @@ public class Veiculo {
 
     @Column
     private String placa;
+    // Teste
 
     @Column
     private String nome;
