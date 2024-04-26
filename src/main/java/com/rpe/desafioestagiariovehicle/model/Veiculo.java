@@ -1,8 +1,7 @@
 package com.rpe.desafioestagiariovehicle.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
@@ -10,9 +9,16 @@ import lombok.Data;
 public class Veiculo {
 
     @Id
-    private long id;
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column
     private String placa;
+
+    @Column
     private String nome;
+
+    @Column
     private String marca;
 
     // Ao criar uma classe base, uma possível escalonação da aplicação se torna mais fácil e prática.
