@@ -3,9 +3,14 @@ package com.rpe.desafioestagiariovehicle.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@Entity
+//@Data
+//@Entity
+//@Getter
+//@Setter
+@MappedSuperclass
 public class Veiculo {
 
     @Id
