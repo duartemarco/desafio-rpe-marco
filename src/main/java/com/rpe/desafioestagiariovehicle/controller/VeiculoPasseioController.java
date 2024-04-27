@@ -3,6 +3,7 @@ package com.rpe.desafioestagiariovehicle.controller;
 import com.rpe.desafioestagiariovehicle.model.VeiculoPasseio;
 import com.rpe.desafioestagiariovehicle.service.VeiculoPasseioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,7 +19,13 @@ public class VeiculoPasseioController {
 
     //* Endpoint para adicionar um Veículo de Passeio
     @PostMapping("/add")
+    @ResponseStatus(HttpStatus.CREATED)
     public VeiculoPasseio addVeiculoPasseio(@RequestBody VeiculoPasseio veiculoPasseio){
+        VeiculoPasseio veiculoPasseioExistente = veiculoPasseioService.getVeiculoPasseioByPlaca(veiculoPasseio.getPlaca());
+        if (veiculoPasseioExistente != null) {
+            throw new IllegalArgumentException("Já existe um veículo cadastrado com a mesma placa.");
+        }
+
         return veiculoPasseioService.cadastraVeiculoPasseio(veiculoPasseio);
     }
 
@@ -36,6 +43,7 @@ public class VeiculoPasseioController {
 
     //* Endpoint para remover um Veículo de Passeio
     @DeleteMapping("/delete/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteVeiculoPasseio(@PathVariable Long id) {
         veiculoPasseioService.deleteVeiculoPasseio(id);
     }
