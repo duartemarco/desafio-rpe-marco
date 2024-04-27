@@ -25,6 +25,9 @@ public class VeiculoPasseioService {
     public VeiculoPasseio atualizarVeiculoPasseio(Long id, VeiculoPasseio veiculoPasseioAtualizado) {
         return repository.findById(id).map(veiculoPasseio -> {
             veiculoPasseio.setNumeroDePassageiros(veiculoPasseioAtualizado.getNumeroDePassageiros());
+            veiculoPasseio.setPlaca(veiculoPasseioAtualizado.getPlaca());
+            veiculoPasseio.setNome(veiculoPasseioAtualizado.getNome());
+            veiculoPasseio.setMarca(veiculoPasseioAtualizado.getMarca());
             return repository.save(veiculoPasseio);
         }).orElse(null);
     }
