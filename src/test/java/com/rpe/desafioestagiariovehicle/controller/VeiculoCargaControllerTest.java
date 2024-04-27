@@ -39,18 +39,20 @@ class VeiculoCargaControllerTest {
         veiculoCarga.setMarca("Volkswagen");
         veiculoCarga.setQuantidadeDeCarroceria(50);
         veiculoCarga.setCapacidadeEmKg(1500L);
+        veiculoCarga.setPlaca("ABCD1234");
 
         when(veiculoCargaService.cadastraVeiculoCarga(any(VeiculoCarga.class))).thenReturn(veiculoCarga);
 
         mockMvc.perform(post("/veiculos/carga/add")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{ \"nome\": \"Caminhonete\" }"))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.nome").value("Caminhonete"))
                 .andExpect(jsonPath("$.marca").value("Volkswagen"))
                 .andExpect(jsonPath("$.quantidadeDeCarroceria").value(50))
-                .andExpect(jsonPath("$.capacidadeEmKg").value(1500L));
+                .andExpect(jsonPath("$.capacidadeEmKg").value(1500L))
+                .andExpect(jsonPath("$.placa").value("ABCD1234"));
     }
 
     @Test
