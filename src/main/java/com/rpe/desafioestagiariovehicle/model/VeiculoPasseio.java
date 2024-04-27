@@ -7,8 +7,6 @@ import lombok.*;
 
 @Data
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
 @Table (name = "tbl_veiculo_passeio")
 public class VeiculoPasseio extends Veiculo {
 
@@ -23,6 +21,9 @@ public class VeiculoPasseio extends Veiculo {
         this.numeroDePassageiros = numeroDePassageiros;
     }
 
-//    Veículo de Passeio: Veículo utilizado para alguns funcionários visitarem seus clientes.
+
+    //    Veículo de Passeio: Veículo utilizado para alguns funcionários visitarem seus clientes.
 //    Atributos: Placa, Nome, Marca, Número de Passageiros
+
+
 }

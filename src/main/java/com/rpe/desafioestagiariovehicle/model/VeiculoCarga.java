@@ -7,10 +7,6 @@ import lombok.*;
 
 @Data
 @Entity
-@Getter
-@Setter
-@AllArgsConstructor
-@EqualsAndHashCode
 @Table (name = "tbl_veiculo_carga")
 public class VeiculoCarga extends Veiculo {
 
@@ -20,10 +16,22 @@ public class VeiculoCarga extends Veiculo {
     @Column
     private int quantidadeDeCarroceria;
 
+    public Long getCapacidadeEmKg() {
+        return capacidadeEmKg;
+    }
 
+    public void setCapacidadeEmKg(Long capacidadeEmKg) {
+        this.capacidadeEmKg = capacidadeEmKg;
+    }
 
+    public int getQuantidadeDeCarroceria() {
+        return quantidadeDeCarroceria;
+    }
 
+    public void setQuantidadeDeCarroceria(int quantidadeDeCarroceria) {
+        this.quantidadeDeCarroceria = quantidadeDeCarroceria;
+    }
 
-//    Veículo de Carga: Veículo utilizado para fazer entregas de mercadorias.
+    //    Veículo de Carga: Veículo utilizado para fazer entregas de mercadorias.
 //    Atributos: Placa, Nome, Marca, Capacidade, Quantidade de Carroceria
 }
