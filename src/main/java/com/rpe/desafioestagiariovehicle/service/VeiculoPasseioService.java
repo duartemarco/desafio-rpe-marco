@@ -37,4 +37,7 @@ public class VeiculoPasseioService {
         repository.deleteById(id);
     }
 
+    public VeiculoPasseio getVeiculoPasseioByPlaca(String placa) {
+        return repository.findVeiculoPasseioByPlaca(placa);
+    }
 }

@@ -38,4 +38,7 @@ public class VeiculoCargaService {
         repository.deleteById(id);
     }
 
+    public VeiculoCarga getVeiculoCargaByPlaca(String placa) {
+        return repository.findVeiculoCargaByPlaca(placa);
+    }
 }
