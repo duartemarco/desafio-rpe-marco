@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/passeio")
+@RequestMapping("/veiculos/passeio")
 public class VeiculoPasseioController {
 
     private final VeiculoPasseioService veiculoPasseioService;
@@ -23,7 +23,7 @@ public class VeiculoPasseioController {
     }
 
     //* Endpoint para consultar um Veículo de Passeio
-    @GetMapping("/id/{id}")
+    @GetMapping("/{id}")
     public VeiculoPasseio getVeiculoPasseioById (@PathVariable Long id) {
         return veiculoPasseioService.getVeiculoPasseioById(id);
     }

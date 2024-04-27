@@ -13,10 +13,10 @@ public class VeiculoCarga extends Veiculo {
     //    Veículo de Carga: Veículo utilizado para fazer entregas de mercadorias.
     //    Atributos: Placa, Nome, Marca, Capacidade, Quantidade de Carroceria
 
-    @Column
+    @Column(nullable = false)
     private Long capacidadeEmKg;
 
-    @Column
+    @Column(nullable = false)
     private int quantidadeDeCarroceria;
 
     public Long getCapacidadeEmKg() {
