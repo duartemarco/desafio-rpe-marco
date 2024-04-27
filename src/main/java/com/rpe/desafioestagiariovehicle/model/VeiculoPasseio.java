@@ -7,8 +7,11 @@ import lombok.*;
 
 @Data
 @Entity
-@Table (name = "tbl_veiculo_passeio")
+@Table(name = "tbl_veiculo_passeio")
 public class VeiculoPasseio extends Veiculo {
+
+    //    Veículo de Passeio: Veículo utilizado para alguns funcionários visitarem seus clientes.
+    //    Atributos: Placa, Nome, Marca, Número de Passageiros
 
     @Column
     private int numeroDePassageiros;
@@ -20,10 +23,6 @@ public class VeiculoPasseio extends Veiculo {
     public void setNumeroDePassageiros(int numeroDePassageiros) {
         this.numeroDePassageiros = numeroDePassageiros;
     }
-
-
-    //    Veículo de Passeio: Veículo utilizado para alguns funcionários visitarem seus clientes.
-//    Atributos: Placa, Nome, Marca, Número de Passageiros
 
 
 }
