@@ -16,17 +16,12 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(authorize  -> authorize
+                .authorizeHttpRequests(authorize -> authorize
                         .anyRequest().authenticated()
                 )
                 .csrf(csrf -> csrf.disable()) // Desabilitado para permitir que o usuário possa realizar operações POST
 
                 .httpBasic(withDefaults());
-
-//        http
-//                .sessionManagement(httpSecuritySessionManagementConfigurer ->
-//                httpSecuritySessionManagementConfigurer
-//                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         http.sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
