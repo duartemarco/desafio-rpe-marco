@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/carga")
+@RequestMapping("/veiculos/carga")
 public class VeiculoCargaController {
 
     private final VeiculoCargaService veiculoCargaService;
@@ -23,7 +23,7 @@ public class VeiculoCargaController {
     }
 
     //* Endpoint para consultar um Veículo de Carga
-    @GetMapping("/id/{id}")
+    @GetMapping("/{id}")
     public VeiculoCarga getVeiculoCargaById (@PathVariable Long id) {
         return veiculoCargaService.getVeiculoCargaById(id);
     }

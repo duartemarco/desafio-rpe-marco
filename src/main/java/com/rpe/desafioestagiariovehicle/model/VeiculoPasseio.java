@@ -13,7 +13,7 @@ public class VeiculoPasseio extends Veiculo {
     //    Veículo de Passeio: Veículo utilizado para alguns funcionários visitarem seus clientes.
     //    Atributos: Placa, Nome, Marca, Número de Passageiros
 
-    @Column
+    @Column(nullable = false)
     private int numeroDePassageiros;
 
     public int getNumeroDePassageiros() {

@@ -12,13 +12,13 @@ public class Veiculo {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     protected Long id;
 
-    @Column
+    @Column(nullable = false, unique = true)
     protected String placa;
 
-    @Column
+    @Column(nullable = false)
     private String nome;
 
-    @Column
+    @Column(nullable = false)
     private String marca;
 
     public String getPlaca() {
