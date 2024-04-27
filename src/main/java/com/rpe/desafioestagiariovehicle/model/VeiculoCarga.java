@@ -7,8 +7,11 @@ import lombok.*;
 
 @Data
 @Entity
-@Table (name = "tbl_veiculo_carga")
+@Table(name = "tbl_veiculo_carga")
 public class VeiculoCarga extends Veiculo {
+
+    //    Veículo de Carga: Veículo utilizado para fazer entregas de mercadorias.
+    //    Atributos: Placa, Nome, Marca, Capacidade, Quantidade de Carroceria
 
     @Column
     private Long capacidadeEmKg;
@@ -32,6 +35,5 @@ public class VeiculoCarga extends Veiculo {
         this.quantidadeDeCarroceria = quantidadeDeCarroceria;
     }
 
-    //    Veículo de Carga: Veículo utilizado para fazer entregas de mercadorias.
-//    Atributos: Placa, Nome, Marca, Capacidade, Quantidade de Carroceria
+
 }
