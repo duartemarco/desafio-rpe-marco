@@ -60,7 +60,7 @@ class VeiculoPasseioControllerTest {
     }
 
     @Test
-    public void AddVeiculoPasseioInvalido() throws Exception {
+    void AddVeiculoPasseioInvalido() throws Exception {
         VeiculoPasseio veiculoPasseio = new VeiculoPasseio();
         veiculoPasseio.setNumeroDePassageiros(0);
 

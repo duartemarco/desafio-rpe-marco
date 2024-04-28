@@ -58,7 +58,7 @@ class VeiculoCargaControllerTest {
     }
 
     @Test
-    public void AddVeiculoCargaInvalido() throws Exception {
+    void AddVeiculoCargaInvalido() throws Exception {
         VeiculoCarga veiculoCarga = new VeiculoCarga();
         veiculoCarga.setCapacidadeEmKg(-100L);
         veiculoCarga.setQuantidadeDeCarroceria(2);
