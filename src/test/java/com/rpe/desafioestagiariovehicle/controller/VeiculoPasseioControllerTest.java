@@ -1,5 +1,6 @@
 package com.rpe.desafioestagiariovehicle.controller;
 
+import com.rpe.desafioestagiariovehicle.exception.PassageirosIgualOuMenorQueZeroException;
 import com.rpe.desafioestagiariovehicle.model.VeiculoCarga;
 import com.rpe.desafioestagiariovehicle.model.VeiculoPasseio;
 import com.rpe.desafioestagiariovehicle.service.VeiculoPasseioService;
@@ -15,9 +16,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -38,7 +38,7 @@ class VeiculoPasseioControllerTest {
     }
 
     @Test
-    void addVeiculoPasseio() throws Exception{
+    void addVeiculoPasseioValido() throws Exception{
         VeiculoPasseio veiculoPasseio = new VeiculoPasseio();
         veiculoPasseio.setId(1L);
         veiculoPasseio.setNome("Corolla");
@@ -60,6 +60,16 @@ class VeiculoPasseioControllerTest {
     }
 
     @Test
+    public void AddVeiculoPasseioInvalido() throws Exception {
+        VeiculoPasseio veiculoPasseio = new VeiculoPasseio();
+        veiculoPasseio.setNumeroDePassageiros(0);
+
+        assertThrows(PassageirosIgualOuMenorQueZeroException.class, () -> {
+            veiculoPasseioController.addVeiculoPasseio(veiculoPasseio);
+        });
+    }
+
+    @Test
     void getVeiculoPasseioById() throws Exception {
         VeiculoPasseio veiculoPasseio = new VeiculoPasseio();
         veiculoPasseio.setId(1L);
@@ -74,10 +84,26 @@ class VeiculoPasseioControllerTest {
     }
 
     @Test
-    void atualizarVeiculoPasseio() {
+    void atualizarVeiculoPasseio() throws Exception{
+        VeiculoPasseio veiculoPasseioAtualizado = new VeiculoPasseio();
+        veiculoPasseioAtualizado.setId(1L);
+        veiculoPasseioAtualizado.setNome("Fusca");
+
+        when(veiculoPasseioService.atualizarVeiculoPasseio(1L, veiculoPasseioAtualizado)).thenReturn(veiculoPasseioAtualizado);
+
+        mockMvc.perform(put("/veiculos/passeio/update/{id}", 1)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{ \"nome\": \"Fusca\" }"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1))
+                .andExpect(jsonPath("$.nome").value("Fusca"));
     }
 
     @Test
-    void deleteVeiculoPasseio() {
+    void deleteVeiculoPasseio() throws Exception {
+        mockMvc.perform(delete("/veiculos/passeio/delete/{id}", 1))
+                .andExpect(status().isNoContent());
+
+        verify(veiculoPasseioService, times(1)).deleteVeiculoPasseio(1L);
     }
 }

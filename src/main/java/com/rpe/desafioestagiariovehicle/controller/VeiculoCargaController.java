@@ -26,20 +26,13 @@ public class VeiculoCargaController {
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public VeiculoCarga addVeiculoCarga(@RequestBody VeiculoCarga veiculoCarga) {
-        // Verificar se já existe um veículo de carga com a mesma placa (o ideal seria consultar se já existe um veículo
-        // em quaisquer repositórios com a mesma placa. Implementar caso sobre tempo.
-        VeiculoCarga veiculoCargaExistente = veiculoCargaService.getVeiculoCargaByPlaca(veiculoCarga.getPlaca());
-        if (veiculoCargaExistente != null) {
-            throw new IllegalArgumentException("Já existe um veículo cadastrado com a mesma placa.");
-        }
-
+    public VeiculoCarga addVeiculoCarga(@RequestBody VeiculoCarga veiculoCarga)  {
         return veiculoCargaService.cadastraVeiculoCarga(veiculoCarga);
     }
 
     //* Endpoint para consultar um Veículo de Carga
     @GetMapping("/{id}")
-    public VeiculoCarga getVeiculoCargaById (@PathVariable Long id) {
+    public VeiculoCarga getVeiculoCargaById(@PathVariable Long id) {
         return veiculoCargaService.getVeiculoCargaById(id);
     }
 

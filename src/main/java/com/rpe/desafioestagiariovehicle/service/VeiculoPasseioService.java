@@ -1,5 +1,6 @@
 package com.rpe.desafioestagiariovehicle.service;
 
+import com.rpe.desafioestagiariovehicle.exception.PassageirosIgualOuMenorQueZeroException;
 import com.rpe.desafioestagiariovehicle.model.VeiculoPasseio;
 import com.rpe.desafioestagiariovehicle.repository.VeiculoPasseioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,16 @@ public class VeiculoPasseioService {
 
     //* Endpoint para adicionar um Veículo de Passeio
     public VeiculoPasseio cadastraVeiculoPasseio(VeiculoPasseio veiculoPasseio) {
+
+        VeiculoPasseio veiculoPasseioExistente = getVeiculoPasseioByPlaca(veiculoPasseio.getPlaca());
+        if (veiculoPasseioExistente != null) {
+            throw new IllegalArgumentException("Já existe um veículo cadastrado com a mesma placa.");
+        }
+
+        if (veiculoPasseio.getNumeroDePassageiros() <= 0) {
+            throw new PassageirosIgualOuMenorQueZeroException();
+        }
+
         return repository.save(veiculoPasseio);
     }
 
