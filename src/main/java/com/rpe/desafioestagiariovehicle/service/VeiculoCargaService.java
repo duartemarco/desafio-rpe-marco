@@ -12,7 +12,7 @@ public class VeiculoCargaService {
     @Autowired
     private VeiculoCargaRepository repository;
 
-    //* Endpoint para adicionar um Veículo de Carga
+    //* Serviço para adicionar um Veículo de Carga
     public VeiculoCarga cadastraVeiculoCarga(VeiculoCarga veiculoCarga) {
 
         VeiculoCarga veiculoCargaExistente = getVeiculoCargaByPlaca(veiculoCarga.getPlaca());
@@ -28,12 +28,12 @@ public class VeiculoCargaService {
         return repository.save(veiculoCarga);
     }
 
-    //* Endpoint para consultar um Veículo de Carga
+    //* Serviço para consultar um Veículo de Carga
     public VeiculoCarga getVeiculoCargaById(Long id) {
         return repository.findById(id).orElse(null);
     }
 
-    //* Endpoint para alterar um Veículo de Carga
+    //* Serviço para alterar um Veículo de Carga
     public VeiculoCarga atualizarVeiculoCarga(Long id, VeiculoCarga veiculoCargaAtualizado) {
         return repository.findById(id).map(veiculoCarga -> {
             veiculoCarga.setCapacidadeEmKg(veiculoCargaAtualizado.getCapacidadeEmKg());
@@ -45,7 +45,7 @@ public class VeiculoCargaService {
         }).orElse(null);
     }
 
-    //* Endpoint para remover um Veículo de Carga
+    //* Serviço para remover um Veículo de Carga
     public void deleteVeiculoCarga(Long id) {
         repository.deleteById(id);
     }

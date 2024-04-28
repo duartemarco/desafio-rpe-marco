@@ -2,14 +2,14 @@ package com.rpe.desafioestagiariovehicle.model;
 
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
 
 @Data
 @MappedSuperclass
 public class Veiculo {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
     @Column(nullable = false, unique = true)
@@ -46,7 +46,6 @@ public class Veiculo {
     }
 
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -69,6 +68,5 @@ public class Veiculo {
         return result;
     }
 
-    // Ao criar uma classe base, uma possível escalonação da aplicação se torna mais fácil e prática.
 
 }
