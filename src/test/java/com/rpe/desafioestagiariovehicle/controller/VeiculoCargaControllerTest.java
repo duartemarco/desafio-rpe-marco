@@ -1,5 +1,6 @@
 package com.rpe.desafioestagiariovehicle.controller;
 
+import com.rpe.desafioestagiariovehicle.exception.CargaOuCarroceriaNegativaException;
 import com.rpe.desafioestagiariovehicle.model.VeiculoCarga;
 import com.rpe.desafioestagiariovehicle.service.VeiculoCargaService;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -32,7 +34,7 @@ class VeiculoCargaControllerTest {
     }
 
     @Test
-    void addVeiculoCarga() throws Exception {
+    void addVeiculoCargaValido() throws Exception {
         VeiculoCarga veiculoCarga = new VeiculoCarga();
         veiculoCarga.setId(1L);
         veiculoCarga.setNome("Caminhonete");
@@ -56,6 +58,17 @@ class VeiculoCargaControllerTest {
     }
 
     @Test
+    public void AddVeiculoCargaInvalido() throws Exception {
+        VeiculoCarga veiculoCarga = new VeiculoCarga();
+        veiculoCarga.setCapacidadeEmKg(-100L);
+        veiculoCarga.setQuantidadeDeCarroceria(2);
+
+        assertThrows(CargaOuCarroceriaNegativaException.class, () -> {
+            veiculoCargaController.addVeiculoCarga(veiculoCarga);
+        });
+    }
+
+    @Test
     void getVeiculoCargaById() throws Exception {
         VeiculoCarga veiculoCarga = new VeiculoCarga();
         veiculoCarga.setId(1L);
@@ -73,22 +86,22 @@ class VeiculoCargaControllerTest {
     void atualizarVeiculoCarga() throws Exception {
         VeiculoCarga veiculoCargaAtualizado = new VeiculoCarga();
         veiculoCargaAtualizado.setId(1L);
-        veiculoCargaAtualizado.setNome("Caminhonete Atualizada");
+        veiculoCargaAtualizado.setNome("Bitrem");
 
         when(veiculoCargaService.atualizarVeiculoCarga(1L, veiculoCargaAtualizado)).thenReturn(veiculoCargaAtualizado);
 
         mockMvc.perform(put("/veiculos/carga/update/{id}", 1)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{ \"nome\": \"Caminhonete Atualizada\" }"))
+                        .content("{ \"nome\": \"Bitrem\" }"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.nome").value("Caminhonete Atualizada"));
+                .andExpect(jsonPath("$.nome").value("Bitrem"));
     }
 
     @Test
     void deleteVeiculoCarga() throws Exception {
         mockMvc.perform(delete("/veiculos/carga/delete/{id}", 1))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
 
         verify(veiculoCargaService, times(1)).deleteVeiculoCarga(1L);
     }

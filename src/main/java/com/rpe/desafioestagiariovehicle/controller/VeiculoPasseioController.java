@@ -20,18 +20,13 @@ public class VeiculoPasseioController {
     //* Endpoint para adicionar um Veículo de Passeio
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public VeiculoPasseio addVeiculoPasseio(@RequestBody VeiculoPasseio veiculoPasseio){
-        VeiculoPasseio veiculoPasseioExistente = veiculoPasseioService.getVeiculoPasseioByPlaca(veiculoPasseio.getPlaca());
-        if (veiculoPasseioExistente != null) {
-            throw new IllegalArgumentException("Já existe um veículo cadastrado com a mesma placa.");
-        }
-
+    public VeiculoPasseio addVeiculoPasseio(@RequestBody VeiculoPasseio veiculoPasseio) {
         return veiculoPasseioService.cadastraVeiculoPasseio(veiculoPasseio);
     }
 
     //* Endpoint para consultar um Veículo de Passeio
     @GetMapping("/{id}")
-    public VeiculoPasseio getVeiculoPasseioById (@PathVariable Long id) {
+    public VeiculoPasseio getVeiculoPasseioById(@PathVariable Long id) {
         return veiculoPasseioService.getVeiculoPasseioById(id);
     }
 

@@ -1,5 +1,6 @@
 package com.rpe.desafioestagiariovehicle.service;
 
+import com.rpe.desafioestagiariovehicle.exception.CargaOuCarroceriaNegativaException;
 import com.rpe.desafioestagiariovehicle.model.VeiculoCarga;
 import com.rpe.desafioestagiariovehicle.repository.VeiculoCargaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,17 @@ public class VeiculoCargaService {
 
     //* Endpoint para adicionar um Veículo de Carga
     public VeiculoCarga cadastraVeiculoCarga(VeiculoCarga veiculoCarga) {
+
+        VeiculoCarga veiculoCargaExistente = getVeiculoCargaByPlaca(veiculoCarga.getPlaca());
+        if (veiculoCargaExistente != null) {
+            throw new IllegalArgumentException("Já existe um veículo cadastrado com a mesma placa.");
+        }
+
+        if (veiculoCarga.getQuantidadeDeCarroceria() < 0 || veiculoCarga.getCapacidadeEmKg() < 0) {
+            throw new CargaOuCarroceriaNegativaException();
+        }
+
+
         return repository.save(veiculoCarga);
     }
 
