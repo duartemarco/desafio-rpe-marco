@@ -12,7 +12,7 @@ public class VeiculoPasseioService {
     @Autowired
     private VeiculoPasseioRepository repository;
 
-    //* Endpoint para adicionar um Veículo de Passeio
+    //* Serviço para adicionar um Veículo de Passeio
     public VeiculoPasseio cadastraVeiculoPasseio(VeiculoPasseio veiculoPasseio) {
 
         VeiculoPasseio veiculoPasseioExistente = getVeiculoPasseioByPlaca(veiculoPasseio.getPlaca());
@@ -27,12 +27,12 @@ public class VeiculoPasseioService {
         return repository.save(veiculoPasseio);
     }
 
-    //* Endpoint para consultar um Veículo de Passeio
+    //* Serviço para consultar um Veículo de Passeio
     public VeiculoPasseio getVeiculoPasseioById(Long id) {
         return repository.findById(id).orElse(null);
     }
 
-    //* Endpoint para alterar um Veículo de Passeio
+    //* Serviço para alterar um Veículo de Passeio
     public VeiculoPasseio atualizarVeiculoPasseio(Long id, VeiculoPasseio veiculoPasseioAtualizado) {
         return repository.findById(id).map(veiculoPasseio -> {
             veiculoPasseio.setNumeroDePassageiros(veiculoPasseioAtualizado.getNumeroDePassageiros());
@@ -43,7 +43,7 @@ public class VeiculoPasseioService {
         }).orElse(null);
     }
 
-    //* Endpoint para remover um Veículo de Passeio
+    //* Serviço para remover um Veículo de Passeio
     public void deleteVeiculoPasseio(Long id) {
         repository.deleteById(id);
     }

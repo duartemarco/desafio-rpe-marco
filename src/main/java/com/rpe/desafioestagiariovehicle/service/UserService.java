@@ -32,6 +32,7 @@ public class UserService {
     @Autowired
     private SecurityConfiguration securityConfiguration;
 
+    //* Serviço para autenticar usuário
     public RecoveryJwtTokenDto authenticateUser(LoginUserDto loginUserDto) {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                 new UsernamePasswordAuthenticationToken(loginUserDto.email(), loginUserDto.password());
@@ -43,6 +44,7 @@ public class UserService {
         return new RecoveryJwtTokenDto(jwtTokenService.generateToken(userDetails));
     }
 
+    //* Serviço para criar usuário
     public void createUser(CreateUserDto createUserDto) {
         User newUser = User.builder()
                 .email(createUserDto.email())

@@ -31,17 +31,29 @@ public class SecurityConfiguration {
     public static final String [] ENDPOINTS_WITH_AUTHENTICATION_REQUIRED = {
             "/users/test",
             "/veiculos/carga",
-            "veiculos/passeio"
+            "/veiculos/carga/add",
+            "/veiculos/carga/update",
+            "/veiculos/carga/delete",
+            "veiculos/passeio",
+            "veiculos/passeio/add",
+            "veiculos/passeio/update",
+            "veiculos/passeio/delete"
     };
 
     // Endpoints que só podem ser acessador por usuários com permissão de cliente
     public static final String [] ENDPOINTS_CUSTOMER = {
-            "/users/test/customer"
+            "/users/test/customer",
+            "/veiculos/carga/id",
+            "/veiculos/passeio/id"
     };
 
     // Endpoints que só podem ser acessador por usuários com permissão de administrador
     public static final String [] ENDPOINTS_ADMIN = {
-            "/users/test/administrator"
+            "/users/test/administrator",
+            "/veiculos/carga",
+            "/veiculos/carga/add",
+            "veiculos/passeio",
+            "veiculos/passeio/add"
     };
 
     @Bean
