@@ -23,4 +23,15 @@ public class VeiculoControllerAdvice {
         return errorDTO;
     }
 
+    @ResponseBody
+    @ResponseStatus
+    @ExceptionHandler
+    public ErrorDTO handlePlacaExistente (PlacaExistenteException placaExistenteException) {
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setStatus(HttpStatus.CONFLICT.value());
+        errorDTO.setMessage("Placa já existente");
+        errorDTO.setTimestamp(new Date());
+        return errorDTO;
+    }
+
 }

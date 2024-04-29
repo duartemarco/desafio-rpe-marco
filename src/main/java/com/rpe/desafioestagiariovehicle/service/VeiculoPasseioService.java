@@ -2,6 +2,7 @@ package com.rpe.desafioestagiariovehicle.service;
 
 import com.rpe.desafioestagiariovehicle.dto.VeiculoPasseioDTO;
 import com.rpe.desafioestagiariovehicle.exception.PassageirosIgualOuMenorQueZeroException;
+import com.rpe.desafioestagiariovehicle.exception.PlacaExistenteException;
 import com.rpe.desafioestagiariovehicle.exception.VeiculoNotFoundException;
 import com.rpe.desafioestagiariovehicle.model.VeiculoPasseio;
 import com.rpe.desafioestagiariovehicle.repository.VeiculoPasseioRepository;
@@ -15,18 +16,19 @@ public class VeiculoPasseioService {
     private VeiculoPasseioRepository repository;
 
     //* Serviço para adicionar um Veículo de Passeio
-    public VeiculoPasseio cadastraVeiculoPasseio(VeiculoPasseio veiculoPasseio) {
+    public VeiculoPasseioDTO cadastraVeiculoPasseio(VeiculoPasseioDTO veiculoPasseioDTO) {
 
-        VeiculoPasseio veiculoPasseioExistente = getVeiculoPasseioByPlaca(veiculoPasseio.getPlaca());
+        VeiculoPasseio veiculoPasseioExistente = getVeiculoPasseioByPlaca(veiculoPasseioDTO.getPlaca());
         if (veiculoPasseioExistente != null) {
-            throw new IllegalArgumentException("Já existe um veículo cadastrado com a mesma placa.");
+            throw new PlacaExistenteException();
         }
 
-        if (veiculoPasseio.getNumeroDePassageiros() <= 0) {
+        if (veiculoPasseioDTO.getNumeroDePassageiros() <= 0) {
             throw new PassageirosIgualOuMenorQueZeroException();
         }
 
-        return repository.save(veiculoPasseio);
+        VeiculoPasseio veiculoPasseio = repository.save(VeiculoPasseio.convert(veiculoPasseioDTO));
+        return VeiculoPasseioDTO.convert(veiculoPasseio);
     }
 
     //* Serviço para consultar um Veículo de Passeio

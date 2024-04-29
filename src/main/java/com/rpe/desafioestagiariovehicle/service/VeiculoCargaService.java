@@ -1,9 +1,10 @@
 package com.rpe.desafioestagiariovehicle.service;
 
 import com.rpe.desafioestagiariovehicle.dto.VeiculoCargaDTO;
-import com.rpe.desafioestagiariovehicle.exception.CargaOuCarroceriaNegativaException;
+import com.rpe.desafioestagiariovehicle.exception.PlacaExistenteException;
 import com.rpe.desafioestagiariovehicle.exception.VeiculoNotFoundException;
 import com.rpe.desafioestagiariovehicle.model.VeiculoCarga;
+import com.rpe.desafioestagiariovehicle.model.VeiculoPasseio;
 import com.rpe.desafioestagiariovehicle.repository.VeiculoCargaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,19 +16,15 @@ public class VeiculoCargaService {
     private VeiculoCargaRepository repository;
 
     //* Serviço para adicionar um Veículo de Carga
-    public VeiculoCarga cadastraVeiculoCarga(VeiculoCarga veiculoCarga) {
+    public VeiculoCargaDTO cadastraVeiculoCarga(VeiculoCargaDTO veiculoCargaDTO) {
 
-        VeiculoCarga veiculoCargaExistente = getVeiculoCargaByPlaca(veiculoCarga.getPlaca());
+        VeiculoCarga veiculoCargaExistente = getVeiculoCargaByPlaca(veiculoCargaDTO.getPlaca());
         if (veiculoCargaExistente != null) {
-            throw new IllegalArgumentException("Já existe um veículo cadastrado com a mesma placa.");
+            throw new PlacaExistenteException();
         }
 
-        if (veiculoCarga.getQuantidadeDeCarroceria() < 0 || veiculoCarga.getCapacidadeEmKg() < 0) {
-            throw new CargaOuCarroceriaNegativaException();
-        }
-
-
-        return repository.save(veiculoCarga);
+        VeiculoCarga veiculoCarga = repository.save(VeiculoCarga.convert(veiculoCargaDTO));
+        return VeiculoCargaDTO.convert(veiculoCarga);
     }
 
     //* Serviço para consultar um Veículo de Carga
@@ -38,15 +35,6 @@ public class VeiculoCargaService {
         }
         throw new VeiculoNotFoundException();
     }
-
-    /*
-         public VeiculoCargaDTO save(VeiculoCargaDTO veiculoCargaDTO) {
-         VeiculoCarga veiculoCarga =
-         repository.save(VeiculoCarga.convert(veiculoCargaDTO));
-         return VeiculoCargaDTO.convert(veiculoCarga);
-         }
-     */
-
 
     //* Serviço para alterar um Veículo de Carga
     public VeiculoCarga atualizarVeiculoCarga(Long id, VeiculoCarga veiculoCargaAtualizado) {

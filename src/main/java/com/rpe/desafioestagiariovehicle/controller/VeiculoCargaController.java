@@ -20,8 +20,8 @@ public class VeiculoCargaController {
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public VeiculoCarga addVeiculoCarga(@RequestBody VeiculoCarga veiculoCarga)  {
-        return veiculoCargaService.cadastraVeiculoCarga(veiculoCarga);
+    public VeiculoCargaDTO addVeiculoCarga(@RequestBody VeiculoCargaDTO veiculoCargaDTO)  {
+        return veiculoCargaService.cadastraVeiculoCarga(veiculoCargaDTO);
     }
 
     //* Endpoint para consultar um Veículo de Carga
