@@ -1,6 +1,8 @@
 package com.rpe.desafioestagiariovehicle.service;
 
+import com.rpe.desafioestagiariovehicle.dto.VeiculoPasseioDTO;
 import com.rpe.desafioestagiariovehicle.exception.PassageirosIgualOuMenorQueZeroException;
+import com.rpe.desafioestagiariovehicle.exception.VeiculoNotFoundException;
 import com.rpe.desafioestagiariovehicle.model.VeiculoPasseio;
 import com.rpe.desafioestagiariovehicle.repository.VeiculoPasseioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +30,15 @@ public class VeiculoPasseioService {
     }
 
     //* Serviço para consultar um Veículo de Passeio
-    public VeiculoPasseio getVeiculoPasseioById(Long id) {
-        return repository.findById(id).orElse(null);
+    public VeiculoPasseioDTO getVeiculoPasseioById(Long id) {
+        VeiculoPasseio veiculoPasseio = repository.findById(id).orElseThrow(VeiculoNotFoundException::new);
+        if (veiculoPasseio != null) {
+            return VeiculoPasseioDTO.convert(veiculoPasseio);
+        }
+        throw new VeiculoNotFoundException();
     }
+
+
 
     //* Serviço para alterar um Veículo de Passeio
     public VeiculoPasseio atualizarVeiculoPasseio(Long id, VeiculoPasseio veiculoPasseioAtualizado) {

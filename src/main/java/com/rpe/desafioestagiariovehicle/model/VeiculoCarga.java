@@ -1,5 +1,6 @@
 package com.rpe.desafioestagiariovehicle.model;
 
+import com.rpe.desafioestagiariovehicle.dto.VeiculoCargaDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -9,9 +10,6 @@ import lombok.Data;
 @Entity
 @Table(name = "tbl_veiculo_carga")
 public class VeiculoCarga extends Veiculo {
-
-    //    Veículo de Carga: Veículo utilizado para fazer entregas de mercadorias.
-    //    Atributos: Placa, Nome, Marca, Capacidade, Quantidade de Carroceria
 
     @Column(nullable = false)
     private Long capacidadeEmKg;
@@ -35,5 +33,15 @@ public class VeiculoCarga extends Veiculo {
         this.quantidadeDeCarroceria = quantidadeDeCarroceria;
     }
 
+    public static VeiculoCarga convert(VeiculoCargaDTO veiculoCargaDTO) {
+        VeiculoCarga veiculoCarga = new VeiculoCarga();
+        veiculoCarga.setPlaca(veiculoCargaDTO.getPlaca());
+        veiculoCarga.setMarca(veiculoCargaDTO.getMarca());
+        veiculoCarga.setNome(veiculoCargaDTO.getNome());
+        veiculoCarga.setId(veiculoCargaDTO.getId());
+        veiculoCarga.setCapacidadeEmKg(veiculoCargaDTO.getCapacidadeEmKg());
+        veiculoCarga.setQuantidadeDeCarroceria(veiculoCargaDTO.getQuantidadeDeCarroceria());
+        return veiculoCarga;
+    }
 
 }
