@@ -1,5 +1,6 @@
 package com.rpe.desafioestagiariovehicle.controller;
 
+import com.rpe.desafioestagiariovehicle.dto.VeiculoPasseioDTO;
 import com.rpe.desafioestagiariovehicle.model.VeiculoPasseio;
 import com.rpe.desafioestagiariovehicle.service.VeiculoPasseioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class VeiculoPasseioController {
 
     //* Endpoint para consultar um Veículo de Passeio
     @GetMapping("/{id}")
-    public VeiculoPasseio getVeiculoPasseioById(@PathVariable Long id) {
+    public VeiculoPasseioDTO getVeiculoPasseioById(@PathVariable Long id) {
         return veiculoPasseioService.getVeiculoPasseioById(id);
     }
 

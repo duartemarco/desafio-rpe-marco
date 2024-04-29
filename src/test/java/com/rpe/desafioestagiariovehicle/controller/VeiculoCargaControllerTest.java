@@ -1,5 +1,6 @@
 package com.rpe.desafioestagiariovehicle.controller;
 
+import com.rpe.desafioestagiariovehicle.dto.VeiculoCargaDTO;
 import com.rpe.desafioestagiariovehicle.exception.CargaOuCarroceriaNegativaException;
 import com.rpe.desafioestagiariovehicle.model.VeiculoCarga;
 import com.rpe.desafioestagiariovehicle.service.VeiculoCargaService;
@@ -74,7 +75,7 @@ class VeiculoCargaControllerTest {
         veiculoCarga.setId(1L);
         veiculoCarga.setNome("Caminhonete");
 
-        when(veiculoCargaService.getVeiculoCargaById(1L)).thenReturn(veiculoCarga);
+        when(veiculoCargaService.getVeiculoCargaById(1L)).thenReturn(VeiculoCargaDTO.convert(veiculoCarga));
 
         mockMvc.perform(get("/veiculos/carga/{id}", 1))
                 .andExpect(status().isOk())

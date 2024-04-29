@@ -1,5 +1,6 @@
 package com.rpe.desafioestagiariovehicle.controller;
 
+import com.rpe.desafioestagiariovehicle.dto.VeiculoPasseioDTO;
 import com.rpe.desafioestagiariovehicle.exception.PassageirosIgualOuMenorQueZeroException;
 import com.rpe.desafioestagiariovehicle.model.VeiculoCarga;
 import com.rpe.desafioestagiariovehicle.model.VeiculoPasseio;
@@ -75,7 +76,7 @@ class VeiculoPasseioControllerTest {
         veiculoPasseio.setId(1L);
         veiculoPasseio.setNome("Corolla");
 
-        when(veiculoPasseioService.getVeiculoPasseioById(1L)).thenReturn(veiculoPasseio);
+        when(veiculoPasseioService.getVeiculoPasseioById(1L)).thenReturn(VeiculoPasseioDTO.convert(veiculoPasseio));
 
         mockMvc.perform(get("/veiculos/passeio/{id}", 1))
                 .andExpect(status().isOk())
