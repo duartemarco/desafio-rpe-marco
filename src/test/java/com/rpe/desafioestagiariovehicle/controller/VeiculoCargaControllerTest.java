@@ -44,7 +44,7 @@ class VeiculoCargaControllerTest {
         veiculoCarga.setCapacidadeEmKg(1500L);
         veiculoCarga.setPlaca("ABCD1234");
 
-        when(veiculoCargaService.cadastraVeiculoCarga(any(VeiculoCarga.class))).thenReturn(veiculoCarga);
+        when(veiculoCargaService.cadastraVeiculoCarga(VeiculoCargaDTO.convert(any(VeiculoCarga.class)))).thenReturn(VeiculoCargaDTO.convert(veiculoCarga));
 
         mockMvc.perform(post("/veiculos/carga/add")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -65,7 +65,7 @@ class VeiculoCargaControllerTest {
         veiculoCarga.setQuantidadeDeCarroceria(2);
 
         assertThrows(CargaOuCarroceriaNegativaException.class, () -> {
-            veiculoCargaController.addVeiculoCarga(veiculoCarga);
+            veiculoCargaController.addVeiculoCarga(VeiculoCargaDTO.convert(veiculoCarga));
         });
     }
 

@@ -21,8 +21,8 @@ public class VeiculoPasseioController {
     //* Endpoint para adicionar um Veículo de Passeio
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public VeiculoPasseio addVeiculoPasseio(@RequestBody VeiculoPasseio veiculoPasseio) {
-        return veiculoPasseioService.cadastraVeiculoPasseio(veiculoPasseio);
+    public VeiculoPasseioDTO addVeiculoPasseio(@RequestBody VeiculoPasseioDTO veiculoPasseioDTO) {
+        return veiculoPasseioService.cadastraVeiculoPasseio(veiculoPasseioDTO);
     }
 
     //* Endpoint para consultar um Veículo de Passeio
