@@ -1,6 +1,6 @@
 # Projeto de Gerenciamento de Veículos - Desafio de Estágio
 
-Este projeto é uma API REST com operações CRUD que utiliza Spring Boot como backend e MySQL como banco de dados.
+Este projeto é uma API REST com operações CRUD que utiliza Spring Boot como backend e MySQL como Banco de Dados.
 A aplicação permite a consulta, adição, atualização e remoção de Veículos de Carga e de Passeio.
 
 ## Instalação via Github
@@ -93,3 +93,17 @@ A aplicação permite a consulta, adição, atualização e remoção de Veícul
 | `GET`  | http://localhost:8000/users/test               | Testa autenticação                  |
 | `GET`  | http://localhost:8000/users/test/customer      | Testa autenticação de Usuário       |
 | `GET`  | http://localhost:8000/users/test/administrator | Testa autenticação de Administrador |
+
+## Ferramentas Utilizadas
+* MySQL
+* Java 22
+* Maven
+* Spring Boot
+* Spring Data JPA
+* Spring Web
+* Spring Security
+* Java JWT
+* Lombok
+* Docker
+* JUnit
+* Mockito
