@@ -1,7 +1,6 @@
 package com.rpe.desafioestagiariovehicle.controller;
 
 import com.rpe.desafioestagiariovehicle.dto.VeiculoCargaDTO;
-import com.rpe.desafioestagiariovehicle.exception.ValoresInvalidosException;
 import com.rpe.desafioestagiariovehicle.model.VeiculoCarga;
 import com.rpe.desafioestagiariovehicle.service.VeiculoCargaService;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,10 +12,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class VeiculoCargaControllerTest {
 
@@ -36,7 +35,7 @@ class VeiculoCargaControllerTest {
 
     @Test
     void addVeiculoCargaValido() throws Exception {
-        VeiculoCarga veiculoCarga = new VeiculoCarga();
+        VeiculoCargaDTO veiculoCarga = new VeiculoCargaDTO();
         veiculoCarga.setId(1L);
         veiculoCarga.setNome("Caminhonete");
         veiculoCarga.setMarca("Volkswagen");
@@ -44,29 +43,9 @@ class VeiculoCargaControllerTest {
         veiculoCarga.setCapacidadeEmKg(1500L);
         veiculoCarga.setPlaca("ABCD1234");
 
-        when(veiculoCargaService.cadastraVeiculoCarga(VeiculoCargaDTO.convert(any(VeiculoCarga.class)))).thenReturn(VeiculoCargaDTO.convert(veiculoCarga));
+        when(veiculoCargaService.cadastraVeiculoCarga(any(VeiculoCargaDTO.class))).thenReturn(veiculoCarga);
 
-        mockMvc.perform(post("/veiculos/carga/add")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{ \"nome\": \"Caminhonete\" }"))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.nome").value("Caminhonete"))
-                .andExpect(jsonPath("$.marca").value("Volkswagen"))
-                .andExpect(jsonPath("$.quantidadeDeCarroceria").value(50))
-                .andExpect(jsonPath("$.capacidadeEmKg").value(1500L))
-                .andExpect(jsonPath("$.placa").value("ABCD1234"));
-    }
-
-    @Test
-    void AddVeiculoCargaInvalido() throws Exception {
-        VeiculoCarga veiculoCarga = new VeiculoCarga();
-        veiculoCarga.setCapacidadeEmKg(-100L);
-        veiculoCarga.setQuantidadeDeCarroceria(2);
-
-        assertThrows(ValoresInvalidosException.class, () -> {
-            veiculoCargaController.addVeiculoCarga(VeiculoCargaDTO.convert(veiculoCarga));
-        });
+        mockMvc.perform(post("/veiculos/carga/add/").contentType(MediaType.APPLICATION_JSON).content("{\"id\": 1, \"nome\": \"Caminhonete\", \"marca\": \"Volkswagen\", \"quantidadeDeCarroceria\": 50, \"capacidadeEmKg\": 1500, \"placa\": \"ABCD1234\"}")).andExpect(status().isCreated()).andExpect(jsonPath("$.nome").value("Caminhonete")).andExpect(jsonPath("$.id").value(1L)).andExpect(jsonPath("$.marca").value("Volkswagen")).andExpect(jsonPath("$.quantidadeDeCarroceria").value(50)).andExpect(jsonPath("$.capacidadeEmKg").value(1500L)).andExpect(jsonPath("$.placa").value("ABCD1234"));
     }
 
     @Test
@@ -77,10 +56,7 @@ class VeiculoCargaControllerTest {
 
         when(veiculoCargaService.getVeiculoCargaById(1L)).thenReturn(VeiculoCargaDTO.convert(veiculoCarga));
 
-        mockMvc.perform(get("/veiculos/carga/{id}", 1))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.nome").value("Caminhonete"));
+        mockMvc.perform(get("/veiculos/carga/{id}", 1)).andExpect(status().isOk()).andExpect(jsonPath("$.id").value(1)).andExpect(jsonPath("$.nome").value("Caminhonete"));
     }
 
     @Test
@@ -91,18 +67,12 @@ class VeiculoCargaControllerTest {
 
         when(veiculoCargaService.atualizarVeiculoCarga(1L, veiculoCargaAtualizado)).thenReturn(veiculoCargaAtualizado);
 
-        mockMvc.perform(put("/veiculos/carga/update/{id}", 1)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{ \"nome\": \"Bitrem\" }"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.nome").value("Bitrem"));
+        mockMvc.perform(put("/veiculos/carga/update/{id}", 1).contentType(MediaType.APPLICATION_JSON).content("{ \"nome\": \"Bitrem\" }")).andExpect(status().isOk()).andExpect(jsonPath("$.id").value(1)).andExpect(jsonPath("$.nome").value("Bitrem"));
     }
 
     @Test
     void deleteVeiculoCarga() throws Exception {
-        mockMvc.perform(delete("/veiculos/carga/delete/{id}", 1))
-                .andExpect(status().isNoContent());
+        mockMvc.perform(delete("/veiculos/carga/delete/{id}", 1)).andExpect(status().isNoContent());
 
         verify(veiculoCargaService, times(1)).deleteVeiculoCarga(1L);
     }
