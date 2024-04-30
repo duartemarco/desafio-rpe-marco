@@ -2,6 +2,7 @@ package com.rpe.desafioestagiariovehicle.service;
 
 import com.rpe.desafioestagiariovehicle.dto.VeiculoCargaDTO;
 import com.rpe.desafioestagiariovehicle.exception.PlacaExistenteException;
+import com.rpe.desafioestagiariovehicle.exception.ValoresInvalidosException;
 import com.rpe.desafioestagiariovehicle.exception.VeiculoNotFoundException;
 import com.rpe.desafioestagiariovehicle.model.VeiculoCarga;
 import com.rpe.desafioestagiariovehicle.model.VeiculoPasseio;
@@ -23,6 +24,11 @@ public class VeiculoCargaService {
             throw new PlacaExistenteException();
         }
 
+        // TODO testar no postman
+        if (veiculoCargaDTO.getCapacidadeEmKg() <= 0 || veiculoCargaDTO.getQuantidadeDeCarroceria() <= 0) {
+            throw new ValoresInvalidosException();
+        }
+
         VeiculoCarga veiculoCarga = repository.save(VeiculoCarga.convert(veiculoCargaDTO));
         return VeiculoCargaDTO.convert(veiculoCarga);
     }
@@ -36,6 +42,8 @@ public class VeiculoCargaService {
         throw new VeiculoNotFoundException();
     }
 
+
+    // TODO usar DTO
     //* Serviço para alterar um Veículo de Carga
     public VeiculoCarga atualizarVeiculoCarga(Long id, VeiculoCarga veiculoCargaAtualizado) {
         return repository.findById(id).map(veiculoCarga -> {

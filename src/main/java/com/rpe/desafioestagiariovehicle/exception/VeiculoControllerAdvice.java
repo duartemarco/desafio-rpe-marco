@@ -15,7 +15,7 @@ public class VeiculoControllerAdvice {
     @ResponseBody
     @ResponseStatus
     @ExceptionHandler
-    public ErrorDTO handleVeiculoNotFound (VeiculoNotFoundException veiculoNotFoundException) {
+    public ErrorDTO handleVeiculoNotFound(VeiculoNotFoundException veiculoNotFoundException) {
         ErrorDTO errorDTO = new ErrorDTO();
         errorDTO.setStatus(HttpStatus.NOT_FOUND.value());
         errorDTO.setMessage("Veículo não encontrado");
@@ -26,10 +26,21 @@ public class VeiculoControllerAdvice {
     @ResponseBody
     @ResponseStatus
     @ExceptionHandler
-    public ErrorDTO handlePlacaExistente (PlacaExistenteException placaExistenteException) {
+    public ErrorDTO handlePlacaExistente(PlacaExistenteException placaExistenteException) {
         ErrorDTO errorDTO = new ErrorDTO();
         errorDTO.setStatus(HttpStatus.CONFLICT.value());
         errorDTO.setMessage("Placa já existente");
+        errorDTO.setTimestamp(new Date());
+        return errorDTO;
+    }
+
+    @ResponseBody
+    @ResponseStatus
+    @ExceptionHandler
+    public ErrorDTO handleValoresInvalidos(ValoresInvalidosException valoresInvalidosException) {
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setStatus(HttpStatus.BAD_REQUEST.value());
+        errorDTO.setMessage("Valores inválidos");
         errorDTO.setTimestamp(new Date());
         return errorDTO;
     }

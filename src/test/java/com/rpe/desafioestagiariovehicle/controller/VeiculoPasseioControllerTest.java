@@ -1,11 +1,9 @@
 package com.rpe.desafioestagiariovehicle.controller;
 
 import com.rpe.desafioestagiariovehicle.dto.VeiculoPasseioDTO;
-import com.rpe.desafioestagiariovehicle.exception.PassageirosIgualOuMenorQueZeroException;
-import com.rpe.desafioestagiariovehicle.model.VeiculoCarga;
+import com.rpe.desafioestagiariovehicle.exception.ValoresInvalidosException;
 import com.rpe.desafioestagiariovehicle.model.VeiculoPasseio;
 import com.rpe.desafioestagiariovehicle.service.VeiculoPasseioService;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -47,7 +45,7 @@ class VeiculoPasseioControllerTest {
         veiculoPasseio.setNumeroDePassageiros(5);
         veiculoPasseio.setPlaca("ABCD1234");
 
-        when(veiculoPasseioService.cadastraVeiculoPasseio(any(VeiculoPasseio.class))).thenReturn(veiculoPasseio);
+        when(veiculoPasseioService.cadastraVeiculoPasseio(VeiculoPasseioDTO.convert(any(VeiculoPasseio.class)))).thenReturn(VeiculoPasseioDTO.convert(veiculoPasseio));
 
         mockMvc.perform(post("/veiculos/passeio/add")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -65,8 +63,8 @@ class VeiculoPasseioControllerTest {
         VeiculoPasseio veiculoPasseio = new VeiculoPasseio();
         veiculoPasseio.setNumeroDePassageiros(0);
 
-        assertThrows(PassageirosIgualOuMenorQueZeroException.class, () -> {
-            veiculoPasseioController.addVeiculoPasseio(veiculoPasseio);
+        assertThrows(ValoresInvalidosException.class, () -> {
+            veiculoPasseioController.addVeiculoPasseio(VeiculoPasseioDTO.convert(veiculoPasseio));
         });
     }
 
