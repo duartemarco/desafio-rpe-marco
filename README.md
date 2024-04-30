@@ -3,6 +3,7 @@
 Este projeto é uma API REST com operações CRUD que utiliza Spring Boot como backend e MySQL como banco de dados.
 A aplicação permite a consulta, adição, atualização e remoção de Veículos de Carga e de Passeio.
 
+## Instalação via Github
 1. **Clone o repositório:**
 
    ```bash
@@ -20,8 +21,21 @@ A aplicação permite a consulta, adição, atualização e remoção de Veícul
     ```bash
     mvn spring-boot:run
     ```
+   
+## Instalação via Docker
+1. **Clone o repositório**
 
-4. **Crie um usuário administrador:**
+   ```bash
+   git clone https://github.com/duartemarco/desafio-rpe-marco.git
+    ```
+2. **Navegue até docker-compose.yml e digite no terminal:**
+    ```bash
+    docker-compose up --build
+    ```
+
+## Rodando a aplicação
+
+1. **Crie um usuário administrador:**
 
    Envie um POST para `localhost:8080/users` preenchendo seu email, senha e acesso:
 
@@ -33,7 +47,7 @@ A aplicação permite a consulta, adição, atualização e remoção de Veícul
     }
     ```
    
-5. **Realize login para receber token**
+2. **Realize login para receber seu token de autenticação**
 
     Envie um POST para `localhost:8080/users/login` com o email e senha criados anteriormente:
 
@@ -54,12 +68,12 @@ A aplicação permite a consulta, adição, atualização e remoção de Veícul
 
 ### Veículo de Carga
 
-| Método   | URL                                              | Descrição                    |
-|----------|--------------------------------------------------|------------------------------|
-| `GET`    | http://localhost:8000/veiculos/carga/{id}        | Consulta um Veículo de Carga |
-| `POST`   | http://localhost:8000/veiculos/carga/add         | Cadastra um Veículo de Carga |
-| `PUT`    | http://localhost:8000/veiculos/carga/update/{id} | Atualiza VeículoCarga por ID |
-| `DELETE` | http://localhost:8000/veiculos/carga/delete/{id} | Deleta VeículoCarga por ID   |
+| Método   | URL                                              | Descrição                        |
+|----------|--------------------------------------------------|----------------------------------|
+| `GET`    | http://localhost:8000/veiculos/carga/{id}        | Consulta um Veículo de Carga     |
+| `POST`   | http://localhost:8000/veiculos/carga/add         | Cadastra um Veículo de Carga     |
+| `PUT`    | http://localhost:8000/veiculos/carga/update/{id} | Atualiza Veículo de Carga por ID |
+| `DELETE` | http://localhost:8000/veiculos/carga/delete/{id} | Deleta Veículo de Carga por ID   |
 
 ### Veículo de Passeio
 

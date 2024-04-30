@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+
+  db:
+    image: mysql
+    restart: always
+    ports:
+      - "3366:3306"
+    environment:
+      MYSQL_DATABASE: dbestagio
+      MYSQL_ROOT_PASSWORD: 1234
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p1234"]
+      timeout: 10s
+      retries: 5
+
+  app:
+    build: .
+    container_name: spring_app
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: jdbc:mysql://db:3306/dbestagio
+      DATABASE_USERNAME: root
+      DATABASE_PASSWORD: 1234
