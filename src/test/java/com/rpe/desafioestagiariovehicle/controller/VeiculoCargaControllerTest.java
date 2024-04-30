@@ -1,7 +1,7 @@
 package com.rpe.desafioestagiariovehicle.controller;
 
 import com.rpe.desafioestagiariovehicle.dto.VeiculoCargaDTO;
-import com.rpe.desafioestagiariovehicle.exception.CargaOuCarroceriaNegativaException;
+import com.rpe.desafioestagiariovehicle.exception.ValoresInvalidosException;
 import com.rpe.desafioestagiariovehicle.model.VeiculoCarga;
 import com.rpe.desafioestagiariovehicle.service.VeiculoCargaService;
 import org.junit.jupiter.api.BeforeEach;
@@ -64,7 +64,7 @@ class VeiculoCargaControllerTest {
         veiculoCarga.setCapacidadeEmKg(-100L);
         veiculoCarga.setQuantidadeDeCarroceria(2);
 
-        assertThrows(CargaOuCarroceriaNegativaException.class, () -> {
+        assertThrows(ValoresInvalidosException.class, () -> {
             veiculoCargaController.addVeiculoCarga(VeiculoCargaDTO.convert(veiculoCarga));
         });
     }

@@ -1,8 +1,8 @@
 package com.rpe.desafioestagiariovehicle.service;
 
 import com.rpe.desafioestagiariovehicle.dto.VeiculoPasseioDTO;
-import com.rpe.desafioestagiariovehicle.exception.PassageirosIgualOuMenorQueZeroException;
 import com.rpe.desafioestagiariovehicle.exception.PlacaExistenteException;
+import com.rpe.desafioestagiariovehicle.exception.ValoresInvalidosException;
 import com.rpe.desafioestagiariovehicle.exception.VeiculoNotFoundException;
 import com.rpe.desafioestagiariovehicle.model.VeiculoPasseio;
 import com.rpe.desafioestagiariovehicle.repository.VeiculoPasseioRepository;
@@ -24,7 +24,7 @@ public class VeiculoPasseioService {
         }
 
         if (veiculoPasseioDTO.getNumeroDePassageiros() <= 0) {
-            throw new PassageirosIgualOuMenorQueZeroException();
+            throw new ValoresInvalidosException();
         }
 
         VeiculoPasseio veiculoPasseio = repository.save(VeiculoPasseio.convert(veiculoPasseioDTO));
@@ -40,8 +40,7 @@ public class VeiculoPasseioService {
         throw new VeiculoNotFoundException();
     }
 
-
-
+    // TODO usar DTO
     //* Serviço para alterar um Veículo de Passeio
     public VeiculoPasseio atualizarVeiculoPasseio(Long id, VeiculoPasseio veiculoPasseioAtualizado) {
         return repository.findById(id).map(veiculoPasseio -> {
