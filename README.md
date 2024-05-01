@@ -3,6 +3,10 @@
 Este projeto é uma API REST com operações CRUD que utiliza Spring Boot como backend e MySQL como Banco de Dados.
 A aplicação permite a consulta, adição, atualização e remoção de Veículos de Carga e de Passeio.
 
+Abaixo, você verá três opções de acesso: via Github, via Docker (Dockerfile ou docker-compose) e via web, pelo Heroku.
+Após as opções de acesso, você verá um breve tutorial sobre como realizar as requisições.
+
+Desenvolvido por Marco Túlio Souto Maior Duarte para o Desafio de Estágio da RPE
 ## Instalação via Github
 1. **Clone o repositório:**
 
@@ -32,6 +36,13 @@ A aplicação permite a consulta, adição, atualização e remoção de Veícul
     ```bash
     docker-compose up --build
     ```
+
+## Acesso via Heroku
+1. Ao invés de enviar as requests para localhost:8080, envie para:
+
+   ```bash
+   https://shielded-plains-30450-17b50a27c0cb.herokuapp.com/
+   ```
 
 ## Rodando a aplicação
 
@@ -63,6 +74,10 @@ A aplicação permite a consulta, adição, atualização e remoção de Veícul
     "token": "eyJhbGciOiJIUzI1NiIsInRIjoxNzE0NTA1YiI6ImFkbWluQGV.fRQvlsLMBGGpyh8gu7vxngPvBIwljTOdp0sKtI4O2Xg"
     }
    ```
+   
+3. **Realize suas requisições!**
+
+Arquivo com JSON das requisições para facilitar sua vida: [Postman Collections](https://drive.google.com/drive/folders/1MdN-iK5L2yQuVj-lvWh-a8hV2yZrtJMr?usp=sharing)
 
 ## Endpoints
 
